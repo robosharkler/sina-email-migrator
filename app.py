@@ -37,7 +37,7 @@ try:
     for page in range(0, page):
         for index in range(1, 1 + email_per_page):
             try:
-                print(f"This is loop number {index} on page {page}")
+                print(f"This is loop number {index} on page {page + 1}")
                 
                 # Construct the CSS selector
                 selector = f".classData:nth-child(2) .listrow:nth-child({index}) > .eveRow"
