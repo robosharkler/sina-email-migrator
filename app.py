@@ -10,15 +10,10 @@ options = Options()
 options.set_preference("browser.download.folderList", 2)
 options.set_preference("browser.download.manager.showWhenStarting", False)
 options.set_preference("browser.download.dir", "/Users/sallyp/Downloads/sinaEmails")
-options.set_preference("browser.download.improvements_to_download_panel", False)
-options.set_preference("browser.download.useDownloadDir", True)
-options.set_preference("browser.download.viewableInternally.enabledTypes", "")
 options.set_preference("browser.helperApps.alwaysAsk.force", False)
-options.set_preference("browser.helperApps.neverAsk.saveToDisk", "application/vnd.ms-excel, application/pdf, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/x-msexcel, application/x-excel, application/excel, application/octet-stream, application/msword, application/csv, text/csv, text/plain, application/vnd.openxmlformats-officedocument.wordprocessingml.document, message/rfc822, message/x-eml, application/x-rar-compressed, application/octet-stream, application/zip, application/x-7z-compressed")
+options.set_preference("browser.helperApps.neverAsk.saveToDisk", "application/vnd.ms-excel, application/pdf, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/x-msexcel, application/x-excel, application/excel, application/octet-stream, application/msword, application/csv, text/csv, text/plain, application/vnd.openxmlformats-officedocument.wordprocessingml.document, message/rfc822, message/x-eml, application/x-rar-compressed, application/zip, application/x-7z-compressed")
+options.set_preference("browser.helperApps.neverAsk.openFile", "application/vnd.ms-excel, application/pdf, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/x-msexcel, application/x-excel, application/excel, application/octet-stream, application/msword, application/csv, text/csv, text/plain, application/vnd.openxmlformats-officedocument.wordprocessingml.document, message/rfc822, message/x-eml, application/x-rar-compressed, application/zip, application/x-7z-compressed")
 options.set_preference("pdfjs.disabled", True)
-options.set_preference("browser.download.manager.focusWhenStarting", False)
-options.set_preference("browser.download.useDownloadDir", True)
-options.set_preference("browser.helperApps.neverAsk.openFile", "application/vnd.ms-excel, application/pdf, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/x-msexcel, application/x-excel, application/excel, application/octet-stream, application/msword, application/csv, text/csv, text/plain, application/vnd.openxmlformats-officedocument.wordprocessingml.document, message/rfc822, message/x-eml, application/x-rar-compressed, application/octet-stream, application/zip, application/x-7z-compressed")
 options.set_preference("browser.download.manager.alertOnEXEOpen", False)
 options.set_preference("browser.download.manager.closeWhenDone", True)
 options.set_preference("browser.download.manager.showAlertOnComplete", False)
@@ -34,42 +29,54 @@ try:
     input("Press Enter to continue...")
 
     # Loop through pages:
-    for page in range (0, 80) :
+    for page in range(0, 80):
         for index in range(1, 21):  # Loop from 1 to 20 (inclusive)
-            print(f"This is loop number {index}")
+            try:
+                print(f"This is loop number {index} on page {page}")
+                
+                # Construct the CSS selector
+                selector = f".classData:nth-child(2) .listrow:nth-child({index}) > .eveRow"
+                print(selector)
+                
+                # Wait for the element to be present and click on it
+                element = WebDriverWait(driver, 10).until(
+                    EC.presence_of_element_located((By.CSS_SELECTOR, selector))
+                )
+                element.click()
+                
+                # Wait for the page to load
+                time.sleep(3)
+                
+                # Wait for the download button to be clickable and click on it
+                download_button = WebDriverWait(driver, 10).until(
+                    EC.element_to_be_clickable((By.CSS_SELECTOR, ".mailPubButStyle:nth-child(10) .mailPubText"))
+                )
+                download_button.click()
+                
+                # Wait for the dropdown to appear and click on the download link
+                download_link = WebDriverWait(driver, 10).until(
+                    EC.element_to_be_clickable((By.XPATH, "//li/a[@value='down_eml']"))
+                )
+                download_link.click()
+                
+                # Wait for the download to complete
+                time.sleep(5)
             
-            # Construct the CSS selector
-            selector = f".classData:nth-child(2) .listrow:nth-child({index}) > .eveRow"
-            print(selector)
-            
-            # Wait for the element to be present and click on it
-            element = WebDriverWait(driver, 10).until(
-                EC.presence_of_element_located((By.CSS_SELECTOR, selector))
-            )
-            element.click()
-            
-            # Wait for the page to load
-            time.sleep(3)
-            
-            # Wait for the download button to be clickable and click on it
-            download_button = WebDriverWait(driver, 10).until(
-                EC.element_to_be_clickable((By.CSS_SELECTOR, ".mailPubButStyle:nth-child(10) .mailPubText"))
-            )
-            download_button.click()
-            
-            # Wait for the dropdown to appear and click on the download link
-            download_link = WebDriverWait(driver, 10).until(
-                EC.element_to_be_clickable((By.XPATH, "//li/a[@value='down_eml']"))
-            )
-            download_link.click()
-            
-            # Wait for the download to complete
-            time.sleep(5)
+            except Exception as e:
+                print(f"An error occurred on page {page}, index {index}: {str(e)}")
+                continue  # Skip to the next email in case of an error
         
         # Click on the next page button if needed
-        next_page_button = driver.find_element(By.CSS_SELECTOR, "#listpage1 > .inBlock:nth-child(3)")
-        next_page_button.click()
+        try:
+            next_page_button = WebDriverWait(driver, 10).until(
+                EC.element_to_be_clickable((By.CSS_SELECTOR, "#listpage1 > .inBlock:nth-child(3)"))
+            )
+            next_page_button.click()
+            time.sleep(3)  # Wait for the page to load
+        except Exception as e:
+            print(f"An error occurred when trying to go to the next page: {str(e)}")
+            break  # Exit the loop if you can't navigate to the next page
 finally:
     # Close the browser
+    print("DONE!")
     driver.quit()
-    print("ok")
