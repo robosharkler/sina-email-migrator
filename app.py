@@ -39,17 +39,6 @@ try:
         for index in range(1, 1 + email_per_page):
             try:
                 print(f"This is loop number {index} on page {page + 1}")
-                
-                # Check if the network issue popup is present and handle it
-                try:
-                    popup = driver.find_element(By.CLASS_NAME, "wui-Dialog")
-                    if popup.is_displayed():
-                        print("Network issue popup detected. Handling...")
-                        # Click on an element inside the popup to dismiss it
-                        popup.find_element(By.CSS_SELECTOR, ".mailPubText").click()
-                        continue  # Skip to the next email in case of popup
-                except Exception:
-                    pass  # Continue if popup is not found
 
                 # Construct the CSS selector
                 selector = f".classData:nth-child(2) .listrow:nth-child({index}) > .eveRow"
@@ -76,7 +65,17 @@ try:
                 # Wait for the download to complete
                 time.sleep(2)
                 downloaded += 1
-            
+
+                # Check if the network issue popup is present and handle it
+                try:
+                    popup = driver.find_element(By.CLASS_NAME, "wui-Dialog")
+                    if popup.is_displayed():
+                        print("Network issue popup detected. Handling...")
+                        # Click on an element inside the popup to dismiss it
+                        popup.find_element(By.CSS_SELECTOR, ".mailPubText").click()
+                        continue  # Skip to the next email in case of popup
+                except Exception:
+                    pass  # Continue if popup is not found
             except Exception as e:
                 print(f"An error occurred on page {page + 1}, index {index}: {str(e)}")
                 continue  # Skip to the next email in case of an error
