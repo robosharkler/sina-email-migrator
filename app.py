@@ -69,7 +69,6 @@ try:
         # Click on the next page button if needed
         next_page_button = driver.find_element(By.CSS_SELECTOR, "#listpage1 > .inBlock:nth-child(3)")
         next_page_button.click()
-    
 finally:
     # Close the browser
     driver.quit()
