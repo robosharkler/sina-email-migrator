@@ -14,8 +14,16 @@ options.set_preference("browser.download.improvements_to_download_panel", False)
 options.set_preference("browser.download.useDownloadDir", True)
 options.set_preference("browser.download.viewableInternally.enabledTypes", "")
 options.set_preference("browser.helperApps.alwaysAsk.force", False)
-options.set_preference("browser.helperApps.neverAsk.saveToDisk", "Thunderbird Document, blob:, application/vnd.protonmail.v1+json, application/json, json, media-src,blob,message, message/rfc6532,message/partial, message/external-body, message/rfc822, application/octet-stream, text/plain, application/download, application/octet-stream, binary/octet-stream, application/binary, application/x-unknown, text/html")
+options.set_preference("browser.helperApps.neverAsk.saveToDisk", "application/vnd.ms-excel, application/pdf, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/x-msexcel, application/x-excel, application/excel, application/octet-stream, application/msword, application/csv, text/csv, text/plain, application/vnd.openxmlformats-officedocument.wordprocessingml.document, message/rfc822, message/x-eml, application/x-rar-compressed, application/octet-stream, application/zip, application/x-7z-compressed")
 options.set_preference("pdfjs.disabled", True)
+options.set_preference("browser.download.manager.focusWhenStarting", False)
+options.set_preference("browser.download.useDownloadDir", True)
+options.set_preference("browser.helperApps.neverAsk.openFile", "application/vnd.ms-excel, application/pdf, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/x-msexcel, application/x-excel, application/excel, application/octet-stream, application/msword, application/csv, text/csv, text/plain, application/vnd.openxmlformats-officedocument.wordprocessingml.document, message/rfc822, message/x-eml, application/x-rar-compressed, application/octet-stream, application/zip, application/x-7z-compressed")
+options.set_preference("browser.download.manager.alertOnEXEOpen", False)
+options.set_preference("browser.download.manager.closeWhenDone", True)
+options.set_preference("browser.download.manager.showAlertOnComplete", False)
+options.set_preference("browser.download.manager.useWindow", False)
+options.set_preference("services.sync.prefs.sync.browser.download.manager.showWhenStarting", False)
 
 # Start Firefox with the specified options
 driver = webdriver.Firefox(options=options)
@@ -26,7 +34,7 @@ try:
     input("Press Enter to continue...")
 
     # Loop through the list
-    for index in range(1, 6):  # Loop from 1 to 5 (inclusive)
+    for index in range(1, 21):  # Loop from 1 to 20 (inclusive)
         print(f"This is loop number {index}")
         
         # Construct the CSS selector
@@ -58,10 +66,11 @@ try:
         time.sleep(5)
     
     # Click on the next page button if needed
-    # next_page_button = driver.find_element(By.CSS_SELECTOR, "#listpage1 > .inBlock:nth-child(3)")
-    # next_page_button.click()
+    next_page_button = driver.find_element(By.CSS_SELECTOR, "#listpage1 > .inBlock:nth-child(3)")
+    next_page_button.click()
     # Add more logic if you need to handle pagination
     
 finally:
     # Close the browser
     driver.quit()
+    print("ok")
