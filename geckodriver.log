@@ -1,0 +1,9 @@
+1719116679730	geckodriver	INFO	Listening on 127.0.0.1:56387
+1719116679761	mozrunner::runner	INFO	Running command: MOZ_CRASHREPORTER="1" MOZ_CRASHREPORTER_NO_REPORT="1" MOZ_CRASHREPORTER_SHUTDOWN="1" MOZ_NO_REMOTE="1" "/sbi ... te" "--remote-debugging-port" "36035" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofilelf5pT4"
+Authorization required, but no authorization protocol specified
+
+Error: cannot open display: :0
+1719116800170	geckodriver	INFO	Listening on 127.0.0.1:35215
+1719116800208	mozrunner::runner	INFO	Running command: MOZ_CRASHREPORTER="1" MOZ_CRASHREPORTER_NO_REPORT="1" MOZ_CRASHREPORTER_SHUTDOWN="1" MOZ_NO_REMOTE="1" "/sbi ... te" "--remote-debugging-port" "43797" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofile1yTgyN"
+[79750] Wayland Proxy [0x7c4430b79560] Error: CheckWaylandDisplay(): Failed to connect to Wayland display '/run/user/1000/wayland-0' error: No such file or directory
+Error: we don't have any display, WAYLAND_DISPLAY='wayland-0' DISPLAY=':0'
