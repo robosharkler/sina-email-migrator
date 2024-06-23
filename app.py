@@ -40,16 +40,6 @@ try:
             try:
                 print(f"This is loop number {index} on page {page + 1}")
                 
-                # Construct the CSS selector
-                selector = f".classData:nth-child(2) .listrow:nth-child({index}) > .eveRow"
-                print(selector)
-                
-                # Wait for the element to be present and click on it
-                element = WebDriverWait(driver, 10).until(
-                    EC.presence_of_element_located((By.CSS_SELECTOR, selector))
-                )
-                element.click()
-                
                 # Check if the network issue popup is present and handle it
                 try:
                     popup = driver.find_element(By.CLASS_NAME, "wui-Dialog")
@@ -60,6 +50,16 @@ try:
                         continue  # Skip to the next email in case of popup
                 except Exception:
                     pass  # Continue if popup is not found
+
+                # Construct the CSS selector
+                selector = f".classData:nth-child(2) .listrow:nth-child({index}) > .eveRow"
+                print(selector)
+                
+                # Wait for the element to be present and click on it
+                element = WebDriverWait(driver, 10).until(
+                    EC.presence_of_element_located((By.CSS_SELECTOR, selector))
+                )
+                element.click()
 
                 # Wait for the download button to be clickable and click on it
                 download_button = WebDriverWait(driver, 10).until(
