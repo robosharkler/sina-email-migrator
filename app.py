@@ -6,7 +6,7 @@ from selenium.webdriver.support import expected_conditions as EC
 import time
 
 email_per_page = 20
-page = 80
+page = 18
 download_path = "/Users/sallyp/Downloads/sinaEmails"
 
 # Set up Firefox options
