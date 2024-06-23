@@ -50,9 +50,6 @@ try:
                 )
                 element.click()
                 
-                # Wait for the page to load
-                time.sleep(3)
-                
                 # Wait for the download button to be clickable and click on it
                 download_button = WebDriverWait(driver, 10).until(
                     EC.element_to_be_clickable((By.CSS_SELECTOR, ".mailPubButStyle:nth-child(10) .mailPubText"))
@@ -66,11 +63,11 @@ try:
                 download_link.click()
                 
                 # Wait for the download to complete
-                time.sleep(5)
+                time.sleep(2)
                 downloaded += 1
             
             except Exception as e:
-                print(f"An error occurred on page {page}, index {index}: {str(e)}")
+                print(f"An error occurred on page {page + 1}, index {index}: {str(e)}")
                 continue  # Skip to the next email in case of an error
             finally:
                 sys.stdout.flush() 
@@ -84,4 +81,3 @@ try:
 finally:
     # Close the browser
     print("DONE! In total {} emails were downloaded!".format(downloaded))
-    driver.quit()
