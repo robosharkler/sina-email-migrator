@@ -73,15 +73,11 @@ try:
                 continue  # Skip to the next email in case of an error
         
         # Click on the next page button if needed
-        try:
-            next_page_button = WebDriverWait(driver, 10).until(
-                EC.element_to_be_clickable((By.CSS_SELECTOR, "#listpage1 > .inBlock:nth-child(3)"))
-            )
-            next_page_button.click()
-            time.sleep(3)  # Wait for the page to load
-        except Exception as e:
-            print(f"An error occurred when trying to go to the next page: {str(e)}")
-            break  # Exit the loop if you can't navigate to the next page
+        next_page_button = WebDriverWait(driver, 10).until(
+            EC.element_to_be_clickable((By.CSS_SELECTOR, "#listpage1 > .inBlock:nth-child(3)"))
+        )
+        next_page_button.click()
+        time.sleep(3)  # Wait for the page to load
 finally:
     # Close the browser
     print("DONE! In total {} emails were downloaded!".format(downloaded))
