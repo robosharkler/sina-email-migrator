@@ -52,7 +52,7 @@ try:
                 
                 # Check if the network issue popup is present and handle it
                 try:
-                    popup = driver.find_element(By.XPATH, "//div[@style='margin-top:20px; margin-left: 160px;']")
+                    popup = driver.find_element(By.CLASS_NAME, "wui-Dialog")
                     if popup.is_displayed():
                         print("Network issue popup detected. Handling...")
                         # Click on an element inside the popup to dismiss it
