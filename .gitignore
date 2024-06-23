@@ -1,4 +1,5 @@
 bin/
 lib/
 pyvenv.cfg
-*log*
+log.txt
+geckodriver.log
