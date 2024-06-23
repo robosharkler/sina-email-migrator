@@ -1,3 +1,4 @@
+import sys
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.firefox.options import Options
@@ -71,6 +72,8 @@ try:
             except Exception as e:
                 print(f"An error occurred on page {page}, index {index}: {str(e)}")
                 continue  # Skip to the next email in case of an error
+            finally:
+                sys.stdout.flush() 
         
         # Click on the next page button if needed
         next_page_button = WebDriverWait(driver, 10).until(
