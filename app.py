@@ -8,6 +8,7 @@ import time
 email_per_page = 20
 page = 18
 download_path = "/Users/sallyp/Downloads/sinaEmails"
+downloaded = 0
 
 # Set up Firefox options
 options = Options()
@@ -65,6 +66,7 @@ try:
                 
                 # Wait for the download to complete
                 time.sleep(5)
+                downloaded += 1
             
             except Exception as e:
                 print(f"An error occurred on page {page}, index {index}: {str(e)}")
@@ -82,5 +84,5 @@ try:
             break  # Exit the loop if you can't navigate to the next page
 finally:
     # Close the browser
-    print("DONE!")
+    print("DONE! In total {} emails were downloaded!".format(downloaded))
     driver.quit()
