@@ -5,11 +5,15 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import time
 
+email_per_page = 20
+page = 80
+download_path = "/Users/sallyp/Downloads/sinaEmails"
+
 # Set up Firefox options
 options = Options()
 options.set_preference("browser.download.folderList", 2)
 options.set_preference("browser.download.manager.showWhenStarting", False)
-options.set_preference("browser.download.dir", "/Users/sallyp/Downloads/sinaEmails")
+options.set_preference("browser.download.dir", download_path)
 options.set_preference("browser.helperApps.alwaysAsk.force", False)
 options.set_preference("browser.helperApps.neverAsk.saveToDisk", "application/vnd.ms-excel, application/pdf, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/x-msexcel, application/x-excel, application/excel, application/octet-stream, application/msword, application/csv, text/csv, text/plain, application/vnd.openxmlformats-officedocument.wordprocessingml.document, message/rfc822, message/x-eml, application/x-rar-compressed, application/zip, application/x-7z-compressed")
 options.set_preference("browser.helperApps.neverAsk.openFile", "application/vnd.ms-excel, application/pdf, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/x-msexcel, application/x-excel, application/excel, application/octet-stream, application/msword, application/csv, text/csv, text/plain, application/vnd.openxmlformats-officedocument.wordprocessingml.document, message/rfc822, message/x-eml, application/x-rar-compressed, application/zip, application/x-7z-compressed")
@@ -29,8 +33,8 @@ try:
     input("Press Enter to continue...")
 
     # Loop through pages:
-    for page in range(0, 80):
-        for index in range(1, 21):  # Loop from 1 to 20 (inclusive)
+    for page in range(0, page):
+        for index in range(1, 1 + email_per_page):
             try:
                 print(f"This is loop number {index} on page {page}")
                 
