@@ -33,42 +33,42 @@ try:
     driver.get("https://m0.mail.sina.com.cn/classic/index.php#action=maillist&fid=new&title=%25E6%2594%25B6%25E4%25BB%25B6%25E5%25A4%25B9")
     input("Press Enter to continue...")
 
-    # Loop through the list
-    for index in range(1, 21):  # Loop from 1 to 20 (inclusive)
-        print(f"This is loop number {index}")
+    # Loop through pages:
+    for page in range (0, 80) :
+        for index in range(1, 21):  # Loop from 1 to 20 (inclusive)
+            print(f"This is loop number {index}")
+            
+            # Construct the CSS selector
+            selector = f".classData:nth-child(2) .listrow:nth-child({index}) > .eveRow"
+            print(selector)
+            
+            # Wait for the element to be present and click on it
+            element = WebDriverWait(driver, 10).until(
+                EC.presence_of_element_located((By.CSS_SELECTOR, selector))
+            )
+            element.click()
+            
+            # Wait for the page to load
+            time.sleep(3)
+            
+            # Wait for the download button to be clickable and click on it
+            download_button = WebDriverWait(driver, 10).until(
+                EC.element_to_be_clickable((By.CSS_SELECTOR, ".mailPubButStyle:nth-child(10) .mailPubText"))
+            )
+            download_button.click()
+            
+            # Wait for the dropdown to appear and click on the download link
+            download_link = WebDriverWait(driver, 10).until(
+                EC.element_to_be_clickable((By.XPATH, "//li/a[@value='down_eml']"))
+            )
+            download_link.click()
+            
+            # Wait for the download to complete
+            time.sleep(5)
         
-        # Construct the CSS selector
-        selector = f".classData:nth-child(2) .listrow:nth-child({index}) > .eveRow"
-        print(selector)
-        
-        # Wait for the element to be present and click on it
-        element = WebDriverWait(driver, 10).until(
-            EC.presence_of_element_located((By.CSS_SELECTOR, selector))
-        )
-        element.click()
-        
-        # Wait for the page to load
-        time.sleep(3)
-        
-        # Wait for the download button to be clickable and click on it
-        download_button = WebDriverWait(driver, 10).until(
-            EC.element_to_be_clickable((By.CSS_SELECTOR, ".mailPubButStyle:nth-child(10) .mailPubText"))
-        )
-        download_button.click()
-        
-        # Wait for the dropdown to appear and click on the download link
-        download_link = WebDriverWait(driver, 10).until(
-            EC.element_to_be_clickable((By.XPATH, "//li/a[@value='down_eml']"))
-        )
-        download_link.click()
-        
-        # Wait for the download to complete
-        time.sleep(5)
-    
-    # Click on the next page button if needed
-    next_page_button = driver.find_element(By.CSS_SELECTOR, "#listpage1 > .inBlock:nth-child(3)")
-    next_page_button.click()
-    # Add more logic if you need to handle pagination
+        # Click on the next page button if needed
+        next_page_button = driver.find_element(By.CSS_SELECTOR, "#listpage1 > .inBlock:nth-child(3)")
+        next_page_button.click()
     
 finally:
     # Close the browser
