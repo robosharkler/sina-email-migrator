@@ -1,0 +1,109 @@
+{
+  "id": "4429e2ae-24db-4fc6-b35c-92cf5105c6c0",
+  "version": "2.0",
+  "name": "sinaEmailMigrator",
+  "url": "https://m0.mail.sina.com.cn/classic/index.php#action=maillist&fid=new&title=%25E6%2594%25B6%25E4%25BB%25B6%25E5%25A4%25B9",
+  "tests": [{
+    "id": "79237a05-1c47-4362-ae37-4f1ef84756d3",
+    "name": "run",
+    "commands": [{
+      "id": "13523db1-bc4d-4272-8d59-19659b611973",
+      "comment": "",
+      "command": "open",
+      "target": "https://m0.mail.sina.com.cn/classic/index.php#action=maillist&fid=new&title=%25E6%2594%25B6%25E4%25BB%25B6%25E5%25A4%25B9&pagecount=0&pageno=1&order=htime&sorttype=desc&type=0&tag=-1",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "a8906b1c-1ca5-498c-85f4-de4a3fcd3497",
+      "comment": "",
+      "command": "store",
+      "target": "1",
+      "targets": [],
+      "value": "index"
+    }, {
+      "id": "fcbae2ff-5924-4b82-ae3b-a8e372eb4bce",
+      "comment": "",
+      "command": "times",
+      "target": "5",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "52dca9ab-fa38-431b-a9fb-f7167b9a527a",
+      "comment": "",
+      "command": "echo",
+      "target": "This is loop number ${index}",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "7ead5aad-8efd-41f3-b1b3-097115a1a7f4",
+      "comment": "",
+      "command": "executeScript",
+      "target": "return \"css=.classData:nth-child(2) .listrow:nth-child(\" + ${index} + \") > .eveRow\"",
+      "targets": [],
+      "value": "selector"
+    }, {
+      "id": "562c715d-d7f5-44c4-b8ec-569f649b5ece",
+      "comment": "",
+      "command": "echo",
+      "target": "${selector}",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "e56c5f06-6f41-4ac8-8810-50debb888599",
+      "comment": "",
+      "command": "click",
+      "target": "${selector}",
+      "targets": [
+        ["css=.classData:nth-child(2) .listrow:nth-child(1) > .eveRow", "css:finder"],
+        ["xpath=//div[@id='maillist']/div/div[2]/div[3]/div[2]/div[2]/div/div/div", "xpath:idRelative"],
+        ["xpath=//div[3]/div[2]/div[2]/div/div/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "d10d0dc1-242a-4a2c-a4d0-1853a173e1d2",
+      "comment": "",
+      "command": "click",
+      "target": "css=.mailPubButStyle:nth-child(10) .mailPubText",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "617b826e-c858-47c0-906b-abb8e27d58a6",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=下载EML文件",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "31dd8c02-c494-4e02-b209-b82868ee0d80",
+      "comment": "",
+      "command": "executeScript",
+      "target": "return Number(${index}) + Number(1)",
+      "targets": [],
+      "value": "index"
+    }, {
+      "id": "c86909a1-c811-4545-a000-cc58a9122468",
+      "comment": "",
+      "command": "end",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "a1938fff-54a3-4813-bc01-9688b30553f9",
+      "comment": "next page",
+      "command": "//click",
+      "target": "css=#listpage1 > .inBlock:nth-child(3)",
+      "targets": [],
+      "value": ""
+    }]
+  }],
+  "suites": [{
+    "id": "fa6c1cf5-3b9e-42ed-b625-e80bff85f27a",
+    "name": "Default Suite",
+    "persistSession": false,
+    "parallel": false,
+    "timeout": 300,
+    "tests": ["79237a05-1c47-4362-ae37-4f1ef84756d3"]
+  }],
+  "urls": ["https://m0.mail.sina.com.cn/classic/index.php#action=maillist&fid=new&title=%25E6%2594%25B6%25E4%25BB%25B6%25E5%25A4%25B9"],
+  "plugins": []
+}
