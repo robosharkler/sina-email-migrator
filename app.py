@@ -63,17 +63,16 @@ try:
                 download_link.click()
                 
                 # Wait for the download to complete
-                time.sleep(2)
+                time.sleep(5)
                 downloaded += 1
 
                 # Check if the network issue popup is present and handle it
                 try:
                     popup = driver.find_element(By.CLASS_NAME, "wui-Dialog")
                     if popup.is_displayed():
-                        print("Network issue popup detected. Handling...")
+                        print("Network issue popup detected, page {} index {}. Handling...".format(page + 1, index))
                         # Click on an element inside the popup to dismiss it
                         popup.find_element(By.CSS_SELECTOR, ".mailPubText").click()
-                        continue  # Skip to the next email in case of popup
                 except Exception:
                     pass  # Continue if popup is not found
             except Exception as e:
